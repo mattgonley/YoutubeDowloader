@@ -6,4 +6,6 @@ setup(name = 'Youtube Downloader',
       author = 'Matt Gonley',
       url = 'https://github.com/mattgonley/YoutubeDowloader',
       packages = ['Youtube_Downloader'],
-      install_requires = ['pytube3', 'beautifulsoup4'])
+      install_requires = ['pytube3',
+                          'beautifulsoup4',
+                          'tkinter'])
