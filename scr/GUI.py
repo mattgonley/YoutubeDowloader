@@ -16,18 +16,24 @@ from scr.download import *
 def Url():
     link = playlist.get()
     playlist.delete(0, 'end')
-    messText(message)
-    text = requests.get(link).text
-    link = correctlink(link)
+    link = correctLink(link)
+    try:
+        text = requests.get(link).text
+    except:
+        messText(message,"\n The URL you entered is did not work. Please enter a valid link,\n\n"
+                         "or if you believe is should have, try it again.\nURL: "+link)
+        return
+    messText(message, "")
     if 'playlist' in link:
         title = BeautifulSoup(text, "html.parser").title.string
-        vid = correctlink(link)
-        errors = Playlisy(folderPath.get(), links(vid), title)
+        vid = correctLink(link)
+        errors = Playlist(folderPath.get(), links(vid), title)
     else:
         errors = single(folderPath.get(), link)
     if errors != "":
-        message.delete("1.0", 'end')
-        message.insert(tk.END, "\n" + errors, 'center')
+        messText(message,errors)
+        #message.delete("1.0", 'end')
+        #message.insert(tk.END, "\n" + errors, 'center')
     else:
         if 'watch' in link:
             message.insert(tk.END, "\n\n Your video has finished downloading", 'center')
@@ -41,10 +47,15 @@ def loc():  # gets selected download location
     folderPath.set(filename)
 
 
-def messText(message):  # creates inital message for user (instructions/info)
+def messText(message, st):  # creates inital message for user (instructions/info)
     message.delete("1.0", 'end')
-    message.insert(tk.END, "\nThe entry box is for the URL. It will download up to 100 videos for playlists.\n\n"
-                           "Link should be for a video, or a playlist.", 'center')
+    if st == "":
+        message.insert(tk.END, "\nThe entry box is for the URL. It will download up to 100 videos for playlists.\n\n"
+                               "Link should be for a video, or a playlist.", 'center')
+    else:
+        message.insert(tk.END, st+'\n', 'center')
+
+
 
 
 # gets the display and sets size of window based upon that
@@ -69,7 +80,7 @@ message = tk.Text(window, height=102, width=200, bg='black', fg='white', bd=0,
                   font=("Helvetica", 12))  # font settings for text
 message.tag_configure('center', justify="center")  # centers the message
 message.tag_add("center", "1.0", "end")
-messText(message)
+messText(message, "")
 button.pack()
 browse.pack()
 message.pack()

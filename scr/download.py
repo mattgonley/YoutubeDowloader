@@ -12,7 +12,7 @@ from mutagen.mp4 import MP4
 from pytube import YouTube  # pytube3
 
 
-def correctlink(site):  # makes sure link is http(s) so can download
+def correctLink(site):  # makes sure link is http(s) so can download
     if 'http' not in site:
         site = "https://" + site
     return site
@@ -33,7 +33,7 @@ def links(site):
     return vids
 
 
-def Playlisy(path, vids, title):
+def Playlist(path, vids, title):
     errors = ""
     title = re.sub('[^-0-9a-zA-Z_\[\]{} ]+', '_', title)  # parse out characters that are terrible naming conventions or
     # produce errors
@@ -51,7 +51,7 @@ def Playlisy(path, vids, title):
         try:
             video = YouTube(vid)  # gets the stream type of audio and best quality
         except:
-            error = ("The %sth video, failed to download. URL: %s\n" %
+            error = ("The %sth video, failed to download. URL: %s\n\n" %
                      (i, vid))  # link that failed to download
             errors = str(errors) + str(error)
             print(error)
@@ -88,7 +88,7 @@ def download(path, name, video):
     name = re.sub('[^a-zA-Z0-9!{}+-]', '_', name)  # parse out characters that are terrible naming conventions
     options = video.streams.filter(type="audio", file_extension="mp4").order_by("bitrate").first()
     # downloads the file to folder, prepends it with playlist number
-    options.download(path, skip_existing=True, filename=name)
+    options.download(path, skip_existing=True, filename=name, )
     name = path + "/" + name + ".mp4"
     song = MP4(name)
     song["\xa9nam"] = video.title  # video title
