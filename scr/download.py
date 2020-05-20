@@ -84,5 +84,4 @@ def download(path, name, video):
     song = MP4(name)
     song["\xa9nam"] = video.title
     song["\xa9ART"] = video.author
-    song["purl"] = video.watch_url
     song.save()
