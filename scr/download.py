@@ -37,7 +37,7 @@ def Playlisy(path, vids, title):
     errors = ""
     title = re.sub('[^-0-9a-zA-Z_\[\]{} ]+', '_', title)  # parse out characters that are terrible naming conventions or
     # produce errors
-    print (title)
+    print(title)
     if path == "":  # no path selected
         path = os.getcwd() + "/music/" + title  # create folder named after playlist
         try:
