@@ -9,6 +9,12 @@ import os
 from pytube import YouTube #pytube3
 import platform
 
+def correctlink(site):
+    if 'http' not in site:
+        site = "https://" + site
+    return site
+
+
 def links(site):
     text = requests.get(site).text # html of the webpage
     soup = BeautifulSoup(text,"html.parser")

@@ -7,9 +7,10 @@ def Url():
     link = playlist.get()
     playlist.delete(0,'end')
     text = requests.get(link).text
+    link = correctlink(link)
     if 'playlist' in link:
         title = BeautifulSoup(text,"html.parser").title.string
-        vid = links(link)
+        vid = correctlink(link)
         errors = download(folderPath.get(), vid, title)
     else:
         errors = single(folderPath.get(), link)
