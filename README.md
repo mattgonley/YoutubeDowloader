@@ -15,11 +15,11 @@ To use, only only needs to run the GUI.py file, which does require python to be 
 # Features
 * Download playlist up to 100 songs
 * Download single video
+* The Song(s) will have attist and title lable
 * Take urls inserted and make them https:// if not already
 * Choose download location, and make folder with playlist name for songs their
 
 # Intended Features (Potential future features)
-* add metadata to files (title, artist, year, album, etc)
 * Convert mp4 files to mp3: des not seem to be nay good way to do on windows
 * Expand max amount of videos in playlist past 100
 * Detail number of videos downloaded out of number in playlist
