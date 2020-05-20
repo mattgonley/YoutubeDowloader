@@ -10,7 +10,7 @@ from pytube import YouTube #pytube3
 from mutagen.mp4 import MP4
 import re
 
-def correctlink(site):
+def correctlink(site): # makes sure link is http(s) so can download
     if 'http' not in site:
         site = "https://" + site
     return site
@@ -32,8 +32,10 @@ def links(site):
 
 def download(path,vids,title):
     errors = ""
+    title = re.sub('[^0-9a-zA-Z_\[\]{} ]+', '_', title)  # parse out characters that are terrible naming conventions or
+    # produce errors
     if path == "": # no path selected
-        path = os.getcwd() + "/music/" + title
+        path = os.getcwd() + "/music/" + title # create folder named after playlist
         try:
             os.makedirs(path)
         except OSError:
@@ -49,7 +51,7 @@ def download(path,vids,title):
             errors=errors+error
             print(error)
             cont = False
-        if cont:
+        if cont: # download if video was obtained from link
             download(path, str(i)+" "+video.name, video)
         i = i + 1
     return errors
@@ -58,7 +60,7 @@ def single(path, vid):
     error = ""
     cont = True
     if path == "":  # no path selected
-        path = os.getcwd() + "/music/"
+        path = os.getcwd() + "/music/" # make folder in current working directory
         try:
             os.makedirs(path)
         except OSError:
@@ -70,18 +72,18 @@ def single(path, vid):
         error = ("%s by %s failed to download URL: %s", (video.title, video.author, vid))  # link that failed to download
         print(error)
         cont = False
-    if cont:
+    if cont: # download only if video was valid
         download(path, video.title, video)
     return error
 
+# function to download the video and add title/artist
 def download(path, name, video):
-    name = re.sub('[^0-9a-zA-Z_\[\]{} ]+', '_',name)
+    name = re.sub('[^0-9a-zA-Z_\[\]{} ]+', '_',name) # parse out characters that are terrible naming conventions
     options = video.streams.filter(type="audio", file_extension="mp4").order_by("bitrate").first()
     # downloads the file to folder, prepends it with playlist number
     options.download(path, skip_existing=True, filename=name)
     name = path+"/"+name+".mp4"
-    print(name)
     song = MP4(name)
-    song["\xa9nam"] = video.title
-    song["\xa9ART"] = video.author
-    song.save()
+    song["\xa9nam"] = video.title # video title
+    song["\xa9ART"] = video.author # video author (channel video came from)
+    song.save() # save changes to video
