@@ -28,5 +28,7 @@ python scr/GUI.py should launch the file (scr/GUI.py being file path from Folder
 * Detail number of videos downloaded out of number in playlist
 * Allow to download videos behind sensativity filter on youtube
 
+# License
+* MIT License 
 
 * If their is features one would like added, feel free to comment and its possible I will add it when I have the time
