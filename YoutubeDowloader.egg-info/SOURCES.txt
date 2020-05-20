@@ -1,0 +1,6 @@
+README.md
+setup.py
+YoutubeDowloader.egg-info/PKG-INFO
+YoutubeDowloader.egg-info/SOURCES.txt
+YoutubeDowloader.egg-info/dependency_links.txt
+YoutubeDowloader.egg-info/top_level.txt
