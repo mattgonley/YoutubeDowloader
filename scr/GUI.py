@@ -22,9 +22,6 @@ def loc():
     filename = filedialog.askdirectory()
     folderPath.set(filename)
 
-
-def if __name__ == '__main__':
-
 window = tk.Tk(className=' Youtube Downloader')
 folderPath = tk.StringVar()
 folderPath.set("")
