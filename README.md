@@ -5,12 +5,14 @@ Python script to download youtube playlists
 * Matt Gonley
 
 # Details
-* Only downloads up to 101 videos
+* Only downloads up to 100 videos
 * downloads as mp4 files with only the audio (can be changed to with video)
 * videos behind a warning will not download
 
 # Instructons
-To use, only only needs to run the GUI.py file, which does require python to be installed. Then for the script to run corretly, the needed packages will have to be installed if they are not already. The setup.py file to automatically install needed packages is under work. I cannot guarentee it works corretly at this time
+To use, only only needs to run the GUI.py file, which does require python to be installed. Then for the script to run corretly, the needed packages will have to be installed if they are not already. 
+To Install packages run the command: pip install -r requirements.txt
+The cmmand should be run in same Directory the requirements.txt file is, or the file path will need to be specified.
 
 # Features
 * Download playlist up to 100 songs
@@ -25,8 +27,5 @@ To use, only only needs to run the GUI.py file, which does require python to be 
 * Detail number of videos downloaded out of number in playlist
 * Allow to download videos behind sensativity filter on youtube
 
-# Disclaimer
-I in no way, shape, or form agree to take responsability for anything that may arise from use of this script, from legal action youtube could take, to blocking ones account or ip address.
-I do not claim it follows youtubes terms and conditions (I also do not claim it doesn't)
 
 * If their is features one would like added, feel free to comment and its possible I will add it when I have the time
