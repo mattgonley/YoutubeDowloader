@@ -48,7 +48,7 @@ def download(path,vids,title):
         try:
             video = YouTube(vid)# gets the stream type of audio and best quality
         except:
-            error = ("The %sth video failed to download : %s\n" % (i, vid)) # link that failed to download
+            error = ("The %sth video, %s by %s failed to download URL: %s\n", (i, video.title, video.author ,vid)) # link that failed to download
             errors=errors+error
             print(error)
         options = video.streams.filter(type="audio", file_extension="mp4").order_by("bitrate").first()
@@ -74,7 +74,7 @@ def single(path, vid):
     try:
         video = YouTube(vid)  # gets the stream type of audio and best quality
     except:
-        error = ("The video failed to download : "+ vid)  # link that failed to download
+        error = ("%s by %s failed to download URL: %s", (video.title, video.author, vid))  # link that failed to download
         print(error)
 
     options = video.streams.filter(type="audio", file_extension="mp4").order_by("bitrate").first()
