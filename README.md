@@ -28,3 +28,5 @@ To use, only only needs to run the GUI.py file, which does require python to be 
 # Disclaimer
 I in no way, shape, or form agree to take responsability for anything that may arise from use of this script, from legal action youtube could take, to blocking ones account or ip address.
 I do not claim it follows youtubes terms and conditions (I also do not claim it doesn't)
+
+* If their is features one would like added, feel free to comment and its possible I will add it when I have the time
