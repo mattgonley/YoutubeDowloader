@@ -41,14 +41,37 @@ def download(path,vids,title):
         print(vid)
         try:
             video = YouTube(vid)# gets the stream type of audio and best quality
-            options = video.streams.filter(type="audio", file_extension="mp4").order_by("bitrate").first()
-            # downloads the file to folder, prepends it with playlist number
-            options.download(path, skip_existing=True, filename_prefix=str(i) + " ")
         except:
             error = ("The %sth video failed to download : %s\n" % (i, vid)) # link that failed to download
             errors=errors+error
             print(error)
-        i = i +1
+        options = video.streams.filter(type="audio", file_extension="mp4").order_by("bitrate").first()
+        # downloads the file to folder, prepends it with playlist number
+        options.download(path, skip_existing=True, filename_prefix=str(i) + " ")
+        i = i + 1
     return errors
 
+def single(path, vid):
+    error = ""
+    if path == "":  # no path selected
+        o_s = platform.system()  # check OS to allow for linux and windows. May work for mac, i do not know
+        # makes the folder with name of playlist inside folder named music. Created where this file is located
+        if o_s == "Windows":
+            path = os.getcwd() + "\\music\\"
+        else:
+            path = os.getcwd() + "/music/"
+        try:
+            os.makedirs(path)
+        except OSError:
+            print("Error creating directory, may already exist")
+    print(vid)
+    try:
+        video = YouTube(vid)  # gets the stream type of audio and best quality
+    except:
+        error = ("The video failed to download : "+ vid)  # link that failed to download
+        print(error)
 
+    options = video.streams.filter(type="audio", file_extension="mp4").order_by("bitrate").first()
+    # downloads the file to folder, prepends it with playlist number
+    options.download(path, skip_existing=True)
+    return error
