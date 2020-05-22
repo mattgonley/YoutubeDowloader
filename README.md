@@ -12,7 +12,8 @@ Python script to download youtube playlists
 # Instructons
 To use, only only needs to run the GUI.py file, which does require python to be installed. Then for the script to run corretly, the needed packages will have to be installed if they are not already. 
 To Install packages run the command: pip install -r requirements.txt
-The cmmand should be run in same Directory the requirements.txt file is, or the file path will need to be specified.
+The command should be run in same Directory the requirements.txt file is, or the file path will need to be specified.
+python scr/GUI.py should launch the file (scr/GUI.py being file path from Folder for this project)
 
 # Features
 * Download playlist up to 100 songs
@@ -27,5 +28,7 @@ The cmmand should be run in same Directory the requirements.txt file is, or the 
 * Detail number of videos downloaded out of number in playlist
 * Allow to download videos behind sensativity filter on youtube
 
+# License
+* MIT License 
 
 * If their is features one would like added, feel free to comment and its possible I will add it when I have the time
