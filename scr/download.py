@@ -5,6 +5,7 @@
 """
 import os
 import re
+import time
 
 import requests
 from bs4 import BeautifulSoup
@@ -50,12 +51,17 @@ def Playlist(path, vids, title):
         cont = True
         try:
             video = YouTube(vid)  # gets the stream type of audio and best quality
+            time.sleep(2)
         except:
-            error = ("The %sth video, failed to download. URL: %s\n\n" %
-                     (i, vid))  # link that failed to download
-            errors = str(errors) + str(error)
-            print(error)
-            cont = False
+            try: # double check for link
+                video = YouTube(vid)  # gets the stream type of audio and best quality
+                time.sleep(2)
+            except:
+                error = ("The %sth video, failed to download. URL: %s\n\n" %
+                         (i, vid))  # link that failed to download
+                errors = str(errors) + str(error)
+                print(error)
+                cont = False
         if cont:  # download if video was obtained from link
             download(path, str(i) + " " + video.title, video)
         i = i + 1
@@ -74,10 +80,15 @@ def single(path, vid):
     print(vid)
     try:
         video = YouTube(vid)  # gets the stream type of audio and best quality
+        time.sleep(5) # ensure adequeate wait time for download
     except:
-        error = ("Failed to download video. URL: %s\n" % vid)  # link that failed to download
-        print(error)
-        cont = False
+        try: # double check video was faulty
+            video = YouTube(vid)  # gets the stream type of audio and best quality
+            time.sleep(5)
+        except:
+            error = ("Failed to download video. URL: %s\n" % vid)  # link that failed to download
+            print(error)
+            cont = False
     if cont:  # download only if video was valid
         download(path, video.title, video)
     return error
