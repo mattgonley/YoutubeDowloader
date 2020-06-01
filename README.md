@@ -1,3 +1,5 @@
+Warning: as of 7/1/2020, it seems to have stopped working. either due to a change in how youtube displays the links or in the pytube package. At some point I intend to look into and resolve it. possible it could be just an issue for me, idk.
+
 # YoutubeDowloader
 Python script to download youtube playlists
 
