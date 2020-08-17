@@ -20,12 +20,12 @@ python scr/GUI.py should launch the file (scr/GUI.py being file path from Folder
 # Features
 * Download playlist up to 100 songs
 * Download single video
-* The Song(s) will have attist and title lable
+* The Song(s) will have artist and title lable
 * Take urls inserted and make them https:// if not already
 * Choose download location, and make folder with playlist name for songs their
 
 # Intended Features (Potential future features)
-* Convert mp4 files to mp3: des not seem to be nay good way to do on windows
+* Convert mp4 files to mp3: des not seem to be a good way to do on windows
 * Expand max amount of videos in playlist past 100
 * Detail number of videos downloaded out of number in playlist
 * Allow to download videos behind sensativity filter on youtube
