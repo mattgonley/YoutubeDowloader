@@ -22,24 +22,21 @@ def correctLink(site):  # makes sure link is http(s) so can download
 
 
 def scrollToBottom(driver):
+    # Currently set for 2 seconds, if internet is slow, one should increase it
     SCROLL_PAUSE_TIME = 2
     # Get scroll height
-    last_height = driver.execute_script("return document.body.scrollHeight")
-    while True:
+    last_height = driver.execute_script("return document.getElementsByTagName('HTML')[0].outerHTML.length;")
+    new_height = -100
+    while last_height != new_height:
         # Scroll down to bottom
         html = driver.find_element_by_tag_name('html')
         html.send_keys(Keys.END)
         # Wait to load page
         time.sleep(SCROLL_PAUSE_TIME)
-        html.send_keys(Keys.END)
-        time.sleep(SCROLL_PAUSE_TIME)
 
         # Calculate new scroll height and compare with last scroll height
-        new_height = driver.execute_script("return document.body.scrollHeight")
-        if new_height == last_height:
-            break
         last_height = new_height
-
+        new_height = driver.execute_script("return document.getElementsByTagName('HTML')[0].outerHTML.length;")
     hrefs = driver.find_elements_by_tag_name("a")
     return hrefs
 
@@ -78,7 +75,6 @@ def Playlist(path, vids, title):
     errorList = []
     for vid in vids:  # the list of url's
         vid = str(vid).split("&list")[0]
-        print(vid)
         try:
             video = YouTube(vid)  # gets the stream type of audio and best quality
             download(path, str(i) + " " + video.title, video)
@@ -99,7 +95,6 @@ def single(path, vid):
             os.makedirs(path)
         except OSError:
             print("Error creating directory, may already exist")
-    print(vid)
     try:
         video = YouTube(vid)  # gets the stream type of audio and best quality
         download(path, video.title, video)
