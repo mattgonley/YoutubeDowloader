@@ -24,25 +24,25 @@ def Url():
                          "or if you believe is should have, try it again.\nURL: "+link)
         return
     messText(message, "")
+    str = ""
     if 'playlist' in link:
-        title = BeautifulSoup(text, "html.parser").title.string
+        title = bs(text, "html.parser").title.string
         vid = correctLink(link)
         errors = Playlist(folderPath.get(), links(vid), title)
+        str = "\n\n Your videos have finished downloading"
     else:
         errors = single(folderPath.get(), link)
+        str = "\n\n Your video has finished downloading"
     if errors != "":
         messText(message,errors)
         #message.delete("1.0", 'end')
         #message.insert(tk.END, "\n" + errors, 'center')
     else:
-        if 'watch' in link:
-            message.insert(tk.END, "\n\n Your video has finished downloading", 'center')
-        else:
-            message.insert(tk.END, "\n\n Your videos have finished downloading", 'center')
+        message.insert(tk.END, str, 'center')
 
 
 def loc():  # gets selected download location
-    global foldePath
+    global folderPath
     filename = filedialog.askdirectory()
     folderPath.set(filename)
 

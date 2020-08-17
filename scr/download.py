@@ -8,9 +8,11 @@ import re
 import time
 
 import requests
-from bs4 import BeautifulSoup
+from bs4 import BeautifulSoup as bs
 from mutagen.mp4 import MP4
 from pytube import YouTube  # pytube3
+from selenium import webdriver
+from selenium.webdriver.common.keys import Keys
 
 
 def correctLink(site):  # makes sure link is http(s) so can download
@@ -19,26 +21,53 @@ def correctLink(site):  # makes sure link is http(s) so can download
     return site
 
 
+def scrollToBottom(driver):
+    SCROLL_PAUSE_TIME = 2
+    # Get scroll height
+    last_height = driver.execute_script("return document.body.scrollHeight")
+    while True:
+        # Scroll down to bottom
+        html = driver.find_element_by_tag_name('html')
+        html.send_keys(Keys.END)
+        # Wait to load page
+        time.sleep(SCROLL_PAUSE_TIME)
+        html.send_keys(Keys.END)
+        time.sleep(SCROLL_PAUSE_TIME)
+
+        # Calculate new scroll height and compare with last scroll height
+        new_height = driver.execute_script("return document.body.scrollHeight")
+        if new_height == last_height:
+            break
+        last_height = new_height
+
+    hrefs = driver.find_elements_by_tag_name("a")
+    return hrefs
+
+
 def links(site):
-    text = requests.get(site).text  # html of the webpage
-    soup = BeautifulSoup(text, "html.parser")
+    browser = webdriver.Firefox()
+    browser.get(site)
+    hrefs = scrollToBottom(browser)
     vids = []  # list to old urls of videos
     prev = '   '  # variable to ensure link is not a duplicate
-    for link in soup.find_all('a'):
-        lin = link.get('href')  # get the href value, which has theportion of link
+    for link in hrefs:
+        lin = link.get_property("href")  # get the href value, which has the portion of link
         # watch so only video links will be valid
         if 'watch' in lin and prev not in lin:  # ensures its a video, not just a link, and not a duplicate
-            vids.append("https://www.youtube.com" + lin)  # appends the obtained link to the full youtube link
+            vids.append(lin)  # appends the obtained link to the full youtube link
             prev = lin  # prevents the duplicate links from being proccessed
+            print(lin)
 
+    browser.close()
     return vids
 
 
 def Playlist(path, vids, title):
     errors = ""
-    title = re.sub('[^-0-9a-zA-Z_\[\]{} ]+', '_', title)  # parse out characters that are terrible naming conventions or
+    title = re.sub("[^-0-9a-zA-Z_{} ]", '_', title)  # parse out characters that are terrible naming conventions or
     # produce errors
     print(title)
+    print(path)
     if path == "":  # no path selected
         path = os.getcwd() + "/music/" + title  # create folder named after playlist
         try:
@@ -46,31 +75,24 @@ def Playlist(path, vids, title):
         except OSError:
             print("Error creating directory, may already exist")
     i = 1
+    errorList = []
     for vid in vids:  # the list of url's
+        vid = str(vid).split("&list")[0]
         print(vid)
-        cont = True
         try:
             video = YouTube(vid)  # gets the stream type of audio and best quality
-            time.sleep(2)
-        except:
-            try: # double check for link
-                video = YouTube(vid)  # gets the stream type of audio and best quality
-                time.sleep(2)
-            except:
-                error = ("The %sth video, failed to download. URL: %s\n\n" %
-                         (i, vid))  # link that failed to download
-                errors = str(errors) + str(error)
-                print(error)
-                cont = False
-        if cont:  # download if video was obtained from link
             download(path, str(i) + " " + video.title, video)
+        except:
+            error = ("The %sth video, failed to download. URL: %s\n\n" %
+                     (i, vid))  # link that failed to download
+            errors.join(str(error))
+            print(error)
         i = i + 1
     return errors
 
 
 def single(path, vid):
     error = ""
-    cont = True
     if path == "":  # no path selected
         path = os.getcwd() + "/music/"  # make folder in current working directory
         try:
@@ -80,17 +102,10 @@ def single(path, vid):
     print(vid)
     try:
         video = YouTube(vid)  # gets the stream type of audio and best quality
-        time.sleep(5) # ensure adequeate wait time for download
-    except:
-        try: # double check video was faulty
-            video = YouTube(vid)  # gets the stream type of audio and best quality
-            time.sleep(5)
-        except:
-            error = ("Failed to download video. URL: %s\n" % vid)  # link that failed to download
-            print(error)
-            cont = False
-    if cont:  # download only if video was valid
         download(path, video.title, video)
+    except:
+        error = ("Failed to download video. URL: %s\n" % vid)  # link that failed to download
+        print(error)
     return error
 
 
