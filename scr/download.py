@@ -98,6 +98,7 @@ def single(path, vid):
 
 # function to download the video and add title/artist
 def download(path, name, video):
+    name = name.replace("'", "").replace("  ", " ").replace(" - ", "-")
     name = re.sub('[^a-zA-Z0-9!{}+-]', '_', name)  # parse out characters that are terrible naming conventions
     options = video.streams.filter(type="audio", file_extension="mp4").order_by("bitrate").first()
     # downloads the file to folder, prepends it with playlist number
