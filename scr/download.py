@@ -108,3 +108,14 @@ def download(path, name, video):
     song["\xa9nam"] = video.title  # video title
     song["\xa9ART"] = video.author  # video author (channel video came from)
     song.save()  # save changes to video
+
+
+def commandLineArgs(link):
+    if 'playlist' in link:
+        browser = webdriver.Firefox().get(link)
+        title = browser.execute_script("return document.title;")
+        Playlist("", links(browser), title)
+        print("Your videos have finished downloading")
+    else:
+        single("", link)
+        print("Your video has finished downloading")
