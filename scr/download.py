@@ -65,18 +65,21 @@ def Playlist(path, vids, title):
             os.makedirs(path)
         except OSError:
             print("Error creating directory, may already exist")
-    i = 1
-    errorList = []
+    i = 0
     for vid in vids:  # the list of url's
+        i += 1
         try:
             video = YouTube(vid)  # gets the stream type of audio and best quality
             download(path, str(i) + " " + video.title, video)
         except:
-            error = ("The %sth video, failed to download. URL: %s\n\n" %
-                     (i, vid))  # link that failed to download
-            errors = errors + error
-            print(error)
-        i = i + 1
+            try:
+                video = YouTube(vid)  # gets the stream type of audio and best quality
+                download(path, str(i) + " " + video.title, video)
+            except:
+                error = ("The %sth video, failed to download. URL: %s\n\n" %
+                         (i, vid))  # link that failed to download
+                errors = errors + error
+                print(error)
     return errors
 
 
@@ -92,7 +95,11 @@ def single(path, vid):
         video = YouTube(vid)  # gets the stream type of audio and best quality
         download(path, video.title, video)
     except:
-        error = ("Failed to download video. URL: %s\n" % vid)  # link that failed to download
+        try:
+            video = YouTube(vid)  # gets the stream type of audio and best quality
+            download(path, video.title, video)
+        except:
+            error = ("Failed to download video. URL: %s\n" % vid)  # link that failed to download
     return error
 
 
@@ -112,7 +119,8 @@ def download(path, name, video):
 
 def commandLineArgs(link):
     if 'playlist' in link:
-        browser = webdriver.Firefox().get(link)
+        browser = webdriver.Firefox()
+        browser.get(link)
         title = browser.execute_script("return document.title;")
         Playlist("", links(browser), title)
         print("Your videos have finished downloading")
