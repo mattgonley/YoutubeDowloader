@@ -1,6 +1,4 @@
 selenium==3.141.0
 mutagen==1.44.0
-beautifulsoup4==4.9.1
-requests==2.23.0
 Pillow==7.1.2
 pytube3==9.6.4

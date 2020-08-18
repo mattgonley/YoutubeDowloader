@@ -17,5 +17,5 @@ if __name__ == "__main__":
         print("YoutubeDonwloader requires Python 3\nYou are using Python %s, which is not supported" % (python_version))
         sys.exit(1)
 
-    import scr.GUI
-    scr.GUI.main()
+    import scr.gui
+    scr.gui.main()

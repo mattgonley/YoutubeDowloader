@@ -12,41 +12,43 @@ from PIL import ImageTk, Image
 
 from .download import *
 
+playlist = None
+folderPath = ""
+message = ""
+
 
 def Url():
     link = playlist.get()
     playlist.delete(0, 'end')
     link = correctLink(link)
+    browser = webdriver.Firefox()
     try:
-        text = requests.get(link).text
+        browser.get(link)
     except:
         messText(message,"\n The URL you entered is did not work. Please enter a valid link,\n\n"
                          "or if you believe is should have, try it again.\nURL: "+link)
         return
     messText(message, "")
-    str = ""
+    finished = ""
     if 'playlist' in link:
-        title = bs(text, "html.parser").title.string
-        vid = correctLink(link)
-        errors = Playlist(folderPath.get(), links(vid), title)
-        str = "\n\n Your videos have finished downloading"
+        title = browser.title.title()
+        print(title)
+        print(folderPath)
+        errors = Playlist(folderPath, links(browser), title)
+        finished = "\n\n Your videos have finished downloading"
     else:
-        errors = single(folderPath.get(), link)
-        str = "\n\n Your video has finished downloading"
+        errors = single(folderPath, link)
+        finished = "\n\n Your video has finished downloading"
     if errors != "":
         messText(message,errors)
-        #message.delete("1.0", 'end')
-        #message.insert(tk.END, "\n" + errors, 'center')
     else:
-        message.insert(tk.END, str, 'center')
+        message.insert(tk.END, finished, 'center')
 
-
-def globe():  # gets selected download location
-    global folderPath, message, playlist
 
 def dir_loc():
+    global folderPath
     filename = filedialog.askdirectory()
-    folderPath.set(filename)
+    folderPath = filename
 
 
 def messText(message, st):  # creates inital message for user (instructions/info)
@@ -59,15 +61,14 @@ def messText(message, st):  # creates inital message for user (instructions/info
 
 
 def main():
-    globe()
+    global message, playlist, folderPath
     # gets the display and sets size of window based upon that
     monitor = ctypes.windll.user32
     height, width = round(monitor.GetSystemMetrics(1) * .8), round(monitor.GetSystemMetrics(0) * .8)
     dis = str(width) + 'x' + str(height)
 
     window = tk.Tk(className=' Youtube Downloader')  # create window
-    folderPath = tk.StringVar()
-    folderPath.set("")
+    folderPath = ""
     browse = tk.Button(window, text='Select Download Location', width=25, command=dir_loc)  # create browse button
     button = tk.Button(window, text='Download', width=25, command=Url)  # create submit button
     window.geometry(dis)  # sets window size

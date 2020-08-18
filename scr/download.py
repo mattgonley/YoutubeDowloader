@@ -7,8 +7,6 @@ import os
 import re
 import time
 
-import requests
-from bs4 import BeautifulSoup as bs
 from mutagen.mp4 import MP4
 from pytube import YouTube  # pytube3
 from selenium import webdriver
@@ -41,19 +39,18 @@ def scrollToBottom(driver):
     return hrefs
 
 
-def links(site):
-    browser = webdriver.Firefox()
-    browser.get(site)
+def links(browser):
     hrefs = scrollToBottom(browser)
     vids = []  # list to old urls of videos
-    prev = '   '  # variable to ensure link is not a duplicate
+    prev = []  # variable to ensure link is not a duplicate
     for link in hrefs:
         lin = link.get_property("href")  # get the href value, which has the portion of link
         # watch so only video links will be valid
-        if 'watch' in lin and prev not in lin:  # ensures its a video, not just a link, and not a duplicate
-            vids.append(lin)  # appends the obtained link to the full youtube link
-            prev = lin  # prevents the duplicate links from being proccessed
-
+        if 'watch' in lin:
+            lin = lin.split("&list")[0]
+            if lin not in prev:  # ensures its a video, not just a link, and not a duplicate
+                vids.append(lin)  # appends the obtained link to the full youtube link
+                prev.append(lin)  # prevents the duplicate links from being proccessed
     browser.close()
     return vids
 
@@ -63,7 +60,8 @@ def Playlist(path, vids, title):
     title = re.sub("[^-0-9a-zA-Z_{} ]", '_', title)  # parse out characters that are terrible naming conventions or
     # produce errors
     if path == "":  # no path selected
-        path = os.getcwd() + "/music/" + title  # create folder named after playlist
+        path = os.path.dirname(os.path.realpath(__file__)) + "\\music\\" + title  # create folder named after playlist
+        print(path)
         try:
             os.makedirs(path)
         except OSError:
@@ -71,14 +69,15 @@ def Playlist(path, vids, title):
     i = 1
     errorList = []
     for vid in vids:  # the list of url's
-        vid = str(vid).split("&list")[0]
         try:
             video = YouTube(vid)  # gets the stream type of audio and best quality
             download(path, str(i) + " " + video.title, video)
+            print(vid)
         except:
             error = ("The %sth video, failed to download. URL: %s\n\n" %
                      (i, vid))  # link that failed to download
-            errors.join(str(error))
+            errors = errors + error
+            print(error)
         i = i + 1
     return errors
 
@@ -86,7 +85,7 @@ def Playlist(path, vids, title):
 def single(path, vid):
     error = ""
     if path == "":  # no path selected
-        path = os.getcwd() + "/music/"  # make folder in current working directory
+        path = os.path.dirname(os.path.realpath(__file__)) + "\\music\\"  # make folder in current working directory
         try:
             os.makedirs(path)
         except OSError:

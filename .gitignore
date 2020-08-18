@@ -2,7 +2,7 @@
 *.pyc
 *.pyc
 *.pyc
-/scr/geckodriver.log
+*geckodriver.log
 /scr/music
 __pycache__
 .idea
