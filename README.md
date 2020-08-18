@@ -31,22 +31,34 @@ $ python install.py
 ```
 
 ## Usage
+For use with the GUI (Graphical User Interface):
 ```console
 $ python -m scr
 ```
+For use without the GUI:
+```console
+$ python -m scr [enter link(s) seperated by a space]
+```
+Example:
+```
+$ python -m scr www.youtube.com/watch?v=4CdFBfKMAU4 www.youtube.com/watch?v=wzS5-AjJ71E
+```
+The above example would download the 2 videos specified in the links
+
 
 ## Features
 * Download playlist of any size
 * Download single video
-* The Song(s) will have artist and title lable
+* The Song(s) will have artist and title label
 * Choose download location, and make folder with playlist name for songs their
 
 ## Intended Features (Potential future features)
 * Convert mp4 files to mp3
 * Detail number of videos downloaded out of number in playlist
-* Allow to download videos behind sensativity filter on youtube
+* Allow to download videos behind sensitivity filter on youtube
 
 ## License
 * MIT License 
-#
+
+##
 * If their is features one would like added, feel free to comment and its possible I will add it when I have the time
