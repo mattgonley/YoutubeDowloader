@@ -42,7 +42,7 @@ $ python -m scr
 * Choose download location, and make folder with playlist name for songs their
 
 ## Intended Features (Potential future features)
-* Convert mp4 files to mp3: des not seem to be a good way to do on windows
+* Convert mp4 files to mp3
 * Detail number of videos downloaded out of number in playlist
 * Allow to download videos behind sensativity filter on youtube
 
