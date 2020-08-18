@@ -61,7 +61,6 @@ def Playlist(path, vids, title):
     # produce errors
     if path == "":  # no path selected
         path = os.path.dirname(os.path.realpath(__file__)) + "\\music\\" + title  # create folder named after playlist
-        print(path)
         try:
             os.makedirs(path)
         except OSError:
@@ -72,7 +71,6 @@ def Playlist(path, vids, title):
         try:
             video = YouTube(vid)  # gets the stream type of audio and best quality
             download(path, str(i) + " " + video.title, video)
-            print(vid)
         except:
             error = ("The %sth video, failed to download. URL: %s\n\n" %
                      (i, vid))  # link that failed to download
