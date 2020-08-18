@@ -5,3 +5,4 @@
 *.pyc
 /scr/geckodriver.log
 /scr/music
+__pycache__
