@@ -28,10 +28,10 @@ def Url():
         messText(message, "\n The URL you entered is did not work. Please enter a valid link,\n\n"
                           "or if you believe is should have, try it again.\nURL: " + link)
         return
-    messText(message, "")
+    messText(message, "") # removes message from the gui
     if 'playlist' in link:
         title = browser.execute_script("return document.title;")
-        errors = Playlist(folderPath, links(browser), title)
+        errors = Playlist(folderPath, get_playlist_links(browser), title)
         finished = "\n\n Your videos have finished downloading"
     else:
         errors = single(folderPath, link)
