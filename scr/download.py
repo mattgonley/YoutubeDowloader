@@ -53,7 +53,6 @@ def links(site):
         if 'watch' in lin and prev not in lin:  # ensures its a video, not just a link, and not a duplicate
             vids.append(lin)  # appends the obtained link to the full youtube link
             prev = lin  # prevents the duplicate links from being proccessed
-            print(lin)
 
     browser.close()
     return vids
@@ -63,8 +62,6 @@ def Playlist(path, vids, title):
     errors = ""
     title = re.sub("[^-0-9a-zA-Z_{} ]", '_', title)  # parse out characters that are terrible naming conventions or
     # produce errors
-    print(title)
-    print(path)
     if path == "":  # no path selected
         path = os.getcwd() + "/music/" + title  # create folder named after playlist
         try:
@@ -82,7 +79,6 @@ def Playlist(path, vids, title):
             error = ("The %sth video, failed to download. URL: %s\n\n" %
                      (i, vid))  # link that failed to download
             errors.join(str(error))
-            print(error)
         i = i + 1
     return errors
 
@@ -100,7 +96,6 @@ def single(path, vid):
         download(path, video.title, video)
     except:
         error = ("Failed to download video. URL: %s\n" % vid)  # link that failed to download
-        print(error)
     return error
 
 
