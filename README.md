@@ -35,6 +35,8 @@ For use with the GUI (Graphical User Interface):
 ```console
 $ python -m scr
 ```
+Which will launch the GUI for one to use and interact with.
+
 For use without the GUI:
 ```console
 $ python -m scr [enter link(s) seperated by a space]
