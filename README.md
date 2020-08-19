@@ -6,7 +6,9 @@ Python script to download YouTube playlists
 
 ## Details
 * Download any size playlist
-* downloads as mp4 files with only the audio
+* Downloads YouTube Video
+* Downloads as mp4 files with only the audio, then converts to mp3 and deletes mp4
+* Converter for mp4 to mp3
 
 ## Required Software
 This program makes use of selenium webdrivers, and in particular their firefox webdriver.
@@ -31,6 +33,7 @@ $ python install.py
 ```
 
 ## Usage
+# Downloader
 For use with the GUI (Graphical User Interface):
 ```console
 $ python -m scr
@@ -53,14 +56,20 @@ Example:
 $ python -m scr -d c:\users\pcuser\downloads www.youtube.com/watch?v=4CdFBfKMAU4 www.youtube.com/watch?v=wzS5-AjJ71E
 ```
 The above example would download the 2 videos specified in the links into the downloads folder
-
+# Converter
+The converter can be invoked from the command line. The absolute file path, or the relative path to a file/directory can be entered
+If a relative path is being used, the -rel (--rel) flag needs to be used.
+```console
+$ python converter/convert.py c:\path\to\folder_or_file
+$ python converter/convert.py -rel .\music\folder_or_file
+```
 
 ## Features
 * Download playlist of any size
 * Download single video
 * The Song(s) will have artist and title label
 * Choose download location, and create a folder their with playlist name containing the songs.
-* MP4 to MP3 converter
+* MP4 to MP3 converter (Standalone, as well as integrated into the downloader)
 
 ## Intended Features (Potential future features)
 * Allow to download videos behind sensitivity filter on youtube (Currently unsure)
