@@ -74,8 +74,8 @@ def Playlist(path, vids, title):
 
 def make_dir(path, title):  # make music directory is no directory is chosen
     if path == "":  # no path selected
-        path = os.path.dirname(
-            os.path.realpath(__file__)) + "\\music\\" + title  # make folder in current working directory
+        path = os.path.join(
+            os.path.dirname(os.path.realpath(__file__)), "music", title) # make folder in current working directory
         try:
             os.makedirs(path)
         except OSError:
@@ -117,7 +117,7 @@ def file_attributes(path, name, video):
     options = video.streams.filter(type="audio", file_extension="mp4").order_by("bitrate").first()
     # downloads the file to folder, prepends it with playlist number
     options.download(path, skip_existing=True, filename=name, )
-    name = path + "/" + name + ".mp4"
+    name = os.path.join(path, name + ".mp4")
     song = MP4(name)
     song["\xa9nam"] = video.title  # video title
     song["\xa9ART"] = video.author  # video author (channel video came from)
