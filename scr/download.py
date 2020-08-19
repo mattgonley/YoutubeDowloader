@@ -129,6 +129,7 @@ def file_attributes(path, name, video):
     song = MP4(name)
     song["\xa9nam"] = video.title  # video title
     song["\xa9ART"] = video.author  # video author (channel video came from)
+    song["\xa9alb"] = os.path.basename(os.path.dirname(name))
     song.save()  # save changes to video
     return name
 

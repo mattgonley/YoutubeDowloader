@@ -15,7 +15,9 @@ def convert_file(file_path):
         mp3 = EID(mp3_file)
         mp3["title"] = mp4.tags.get("\xa9nam")  # video title
         mp3["artist"] = mp4.tags.get("\xa9ART")  # video author (channel video came from)
+        mp3["album"] = mp4.tags.get("\xa9alb")
         mp3.save()  # save changes to video
+        os.remove(file_path)
 
 
 def search_dir(directory):
