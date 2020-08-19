@@ -52,12 +52,11 @@ The above example would download the 2 videos specified in the links
 * Download playlist of any size
 * Download single video
 * The Song(s) will have artist and title label
-* Choose download location, and make folder with playlist name for songs their
+* Choose download location, and create a folder their with playlist name containing the songs.
+* MP4 to MP3 converter
 
 ## Intended Features (Potential future features)
-* Convert mp4 files to mp3
-* Detail number of videos downloaded out of number in playlist
-* Allow to download videos behind sensitivity filter on youtube
+* Allow to download videos behind sensitivity filter on youtube (Currently unsure)
 
 ## License
 * MIT License 
