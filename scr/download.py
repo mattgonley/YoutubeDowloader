@@ -75,7 +75,7 @@ def Playlist(path, vids, title):
 def make_dir(path, title):  # make music directory is no directory is chosen
     if path == "":  # no path selected
         path = os.path.join(
-            os.path.dirname(os.path.realpath(__file__)), "music", title) # make folder in current working directory
+            os.path.dirname(os.path.realpath(__file__)), "music", title)  # make folder in current working directory
         try:
             os.makedirs(path)
         except OSError:

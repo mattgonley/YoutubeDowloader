@@ -28,7 +28,7 @@ def Url():
         messText(message, "\n The URL you entered is did not work. Please enter a valid link,\n\n"
                           "or if you believe is should have, try it again.\nURL: " + link)
         return
-    messText(message, "") # removes message from the gui
+    messText(message, "")  # removes message from the gui
     if 'playlist' in link:
         title = browser.execute_script("return document.title;")
         errors = Playlist(folderPath, get_playlist_links(browser), title)
@@ -75,7 +75,8 @@ def main():
     canvas.pack()
     playlist = tk.Entry(window, justify='center')
     canvas.create_window(width / 2, 200, window=playlist, height=30, width=700)
-    img = ImageTk.PhotoImage(Image.open(os.path.join(os.path.dirname(os.path.realpath(__file__)), 'new-youtube-logo.jpg')))
+    img = ImageTk.PhotoImage(
+        Image.open(os.path.join(os.path.dirname(os.path.realpath(__file__)), 'new-youtube-logo.jpg')))
     canvas.create_image(width / 4, 0, anchor='nw', image=img)
     message = tk.Text(window, height=102, width=200, bg='black', fg='white', bd=0,
                       font=("Helvetica", 12))  # font settings for text
