@@ -19,7 +19,7 @@ When installed, the file needs to be added to the path.
 **NOTE**: Python 3 is required.
 ```console
 # clone the repo
-$ git clone https://github.com/mattgonley/YoutubeDowloader.git
+$ git clone https://github.com/mattgonley/YoutubeDownloader.git
 
 # change the working directory to YoutubeDownloader
 $ cd YoutubeDownloader
