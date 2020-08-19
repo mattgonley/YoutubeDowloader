@@ -2,3 +2,5 @@ selenium==3.141.0
 mutagen==1.44.0
 Pillow==7.1.2
 pytube3==9.6.4
+download~=0.3.5
+moviepy~=1.0.3

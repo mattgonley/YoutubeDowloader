@@ -18,7 +18,7 @@ def search_dir(directory):
                 search_dir(os.path.join(directory, file))
             elif file.endswith(".mp4"):
                 convert_file(os.path.join(directory, file))
-    if os.path.isfile(directory) and directory.endswith(".mp4"):
+    elif os.path.isfile(directory) and directory.endswith(".mp4"):
         convert_file(directory)
     else:
         print("Dir: [" + directory + "] is an invalid directory or file. Please ensure you had the file path correct,"

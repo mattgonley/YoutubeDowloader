@@ -58,7 +58,7 @@ def Playlist(path, vids, title):
     errors = ""
     title = regex(title)
     # produce errors
-    make_dir(path, title)
+    path = make_dir(path, title)
     i = 0
     for vid in vids:  # the list of url's
         i += 1
@@ -69,6 +69,8 @@ def Playlist(path, vids, title):
                      (i, vid))  # link that failed to download
             errors = errors + error
             print(error)
+    import converter.convert
+    converter.convert.search_dir(path)
     return errors
 
 
@@ -87,8 +89,9 @@ def make_dir(path, title):  # make music directory is no directory is chosen
 def vid_download(path, vid, title):
     try:
         video = YouTube(vid)
-        file_attributes(path, title + video.title, video)
-    except KeyError:
+        name = title + video.title
+        file_attributes(path, name, video)
+    except:
         video = YouTube(vid)
         file_attributes(path, title + video.title, video)
 
@@ -108,6 +111,7 @@ def regex(string):
     string = string.replace("'", "")
     string = re.sub('[^a-zA-Z0-9!{}+-]', '_', string)  # parse out characters that are terrible naming conventions
     string = re.sub("_+", "_", string)
+    string = string.removesuffix("_")
     return string
 
 
@@ -122,8 +126,7 @@ def file_attributes(path, name, video):
     song["\xa9nam"] = video.title  # video title
     song["\xa9ART"] = video.author  # video author (channel video came from)
     song.save()  # save changes to video
-    import converter.convert
-    converter.convert.search_dir(path)
+    return name
 
 
 def commandLineArgs(link):
