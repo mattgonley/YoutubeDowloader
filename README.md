@@ -1,4 +1,4 @@
-## YoutubeDowloader
+## YoutubeDownloader
 Python script to download YouTube playlists
 
 ## Author
@@ -62,7 +62,7 @@ The above example would download the 2 videos specified in the links
 * MIT License 
 
 ## Warning
-Downloading youtube videos is aginst YouTubes Terms of service. As such use of this code carries a risk. This was created for fun, and definitelly not to download youtube videos. If one chooses to use it to download videos, a VPN may not be a bad idea.
+Downloading youtube videos is against YouTubes Terms of service. As such use of this code carries a risk. This was created for fun, and definitelly not to download youtube videos. If one chooses to use it to download videos, a VPN may not be a bad idea.
 
 ##
 * If their is features one would like added, feel free to comment and its possible I will add it when I have the time

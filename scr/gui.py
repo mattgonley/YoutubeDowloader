@@ -75,7 +75,7 @@ def main():
     canvas.pack()
     playlist = tk.Entry(window, justify='center')
     canvas.create_window(width / 2, 200, window=playlist, height=30, width=700)
-    img = ImageTk.PhotoImage(Image.open(os.path.dirname(os.path.realpath(__file__)) + './new-youtube-logo.jpg'))
+    img = ImageTk.PhotoImage(Image.open(os.path.join(os.path.dirname(os.path.realpath(__file__)), 'new-youtube-logo.jpg')))
     canvas.create_image(width / 4, 0, anchor='nw', image=img)
     message = tk.Text(window, height=102, width=200, bg='black', fg='white', bd=0,
                       font=("Helvetica", 12))  # font settings for text
