@@ -27,7 +27,7 @@ if __name__ == "__main__":
         scr.gui.main()
     else:
         import scr.download
-        if not os.path.exists(args.path):
+        if args.path is not "" and not os.path.exists(args.path):
             print("The specified download directory is invalid")
             sys.exit(1)
         for arg in args.links:

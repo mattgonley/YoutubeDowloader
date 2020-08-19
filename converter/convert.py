@@ -1,6 +1,8 @@
 import argparse
 
 from moviepy.editor import *
+from mutagen.mp4 import MP4
+from mutagen.easyid3 import EasyID3 as EID
 
 
 def convert_file(file_path):
@@ -9,6 +11,11 @@ def convert_file(file_path):
         clip = AudioFileClip(file_path)
         clip.write_audiofile(mp3_file)
         clip.close()
+        mp4 = MP4(file_path)
+        mp3 = EID(mp3_file)
+        mp3["title"] = mp4.tags.get("\xa9nam")  # video title
+        mp3["artist"] = mp4.tags.get("\xa9ART")  # video author (channel video came from)
+        mp3.save()  # save changes to video
 
 
 def search_dir(directory):
