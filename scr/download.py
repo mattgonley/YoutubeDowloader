@@ -11,6 +11,7 @@ from mutagen.mp4 import MP4
 from pytube import YouTube  # pytube3
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
+import converter.convert
 
 
 def correctLink(site):  # makes sure link is http(s) so can download
@@ -69,7 +70,6 @@ def Playlist(path, vids, title):
                      (i, vid))  # link that failed to download
             errors = errors + error
             print(error)
-    import converter.convert
     converter.convert.search_dir(path)
     return errors
 
@@ -90,7 +90,7 @@ def vid_download(path, vid, title):
     try:
         video = YouTube(vid)
         name = title + video.title
-        file_attributes(path, name, video)
+        return file_attributes(path, name, video)
     except:
         video = YouTube(vid)
         file_attributes(path, title + video.title, video)
@@ -100,7 +100,8 @@ def single(path, vid):
     error = ""
     path = make_dir(path, "")
     try:
-        vid_download(path, vid, "")
+        name = vid_download(path, vid, "")
+        converter.convert.convert_file(name)
     except KeyError:
         error = ("Failed to download video. URL: %s\n" % vid)  # link that failed to download
     return error
@@ -111,7 +112,8 @@ def regex(string):
     string = string.replace("'", "")
     string = re.sub('[^a-zA-Z0-9!{}+-]', '_', string)  # parse out characters that are terrible naming conventions
     string = re.sub("_+", "_", string)
-    string = string.removesuffix("_")
+    if string.endswith("_"):
+        string = string[:-1]
     return string
 
 
@@ -120,6 +122,7 @@ def file_attributes(path, name, video):
     name = regex(name)
     options = video.streams.filter(type="audio", file_extension="mp4").order_by("bitrate").first()
     # downloads the file to folder, prepends it with playlist number
+    name = name.replace("_.mp4", ".mp4")
     options.download(path, skip_existing=True, filename=name, )
     name = os.path.join(path, name + ".mp4")
     song = MP4(name)

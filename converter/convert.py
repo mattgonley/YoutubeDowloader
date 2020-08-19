@@ -4,11 +4,11 @@ from moviepy.editor import *
 
 
 def convert_file(file_path):
-    print(file_path)
-    clip = AudioFileClip(file_path)
-    file_path = file_path.replace(".mp4", ".mp3")
-    clip.write_audiofile(file_path)
-    clip.close()
+    mp3_file = file_path.replace(".mp4", ".mp3")
+    if not os.path.isfile(mp3_file):
+        clip = AudioFileClip(file_path)
+        clip.write_audiofile(file_path)
+        clip.close()
 
 
 def search_dir(directory):
