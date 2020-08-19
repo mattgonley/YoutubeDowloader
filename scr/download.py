@@ -122,6 +122,8 @@ def file_attributes(path, name, video):
     song["\xa9nam"] = video.title  # video title
     song["\xa9ART"] = video.author  # video author (channel video came from)
     song.save()  # save changes to video
+    import converter.convert
+    converter.convert.search_dir(path)
 
 
 def commandLineArgs(link):
