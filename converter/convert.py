@@ -7,7 +7,7 @@ def convert_file(file_path):
     mp3_file = file_path.replace(".mp4", ".mp3")
     if not os.path.isfile(mp3_file):
         clip = AudioFileClip(file_path)
-        clip.write_audiofile(file_path)
+        clip.write_audiofile(mp3_file)
         clip.close()
 
 

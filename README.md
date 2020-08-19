@@ -44,8 +44,15 @@ $ python -m scr [enter link(s) seperated by a space]
 Example:
 ```
 $ python -m scr www.youtube.com/watch?v=4CdFBfKMAU4 www.youtube.com/watch?v=wzS5-AjJ71E
+``````console
+$ python -m scr [enter link(s) seperated by a space]
 ```
-The above example would download the 2 videos specified in the links
+The Directory to use download them can also be specified via the command line with the -d (--directory) flag
+Example:
+```
+$ python -m scr -d c:\users\pcuser\downloads www.youtube.com/watch?v=4CdFBfKMAU4 www.youtube.com/watch?v=wzS5-AjJ71E
+```
+The above example would download the 2 videos specified in the links into the downloads folder
 
 
 ## Features

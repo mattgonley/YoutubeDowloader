@@ -11,6 +11,7 @@ from mutagen.mp4 import MP4
 from pytube import YouTube  # pytube3
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
+
 import converter.convert
 
 
@@ -132,13 +133,13 @@ def file_attributes(path, name, video):
     return name
 
 
-def commandLineArgs(link):
+def commandLineArgs(link, path):
     if 'playlist' in link:
         browser = webdriver.Firefox()
         browser.get(link)
         title = browser.execute_script("return document.title;")
-        Playlist("", get_playlist_links(browser), title)
+        Playlist(path, get_playlist_links(browser), title)
         print("Your videos have finished downloading")
     else:
-        single("", link)
+        single(path, link)
         print("Your video has finished downloading")
